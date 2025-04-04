@@ -7,6 +7,15 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+      with:
+        path: ${{ github.repository.name }}
+
+    - name: Verify repository checkout
+      run: |
+        pwd; ls -lA .; ls -lA ..
+
     - name: Check out dependencies
       uses: actions/checkout@v4
       with:
@@ -15,14 +24,5 @@ jobs:
         token: ${{ secrets.TOGGLE_LIGHTS_PUBLISH_PACKAGE }}
 
     - name: Verify dependency checkout
-      run: |
-        pwd; ls -lA .; ls -lA ..
-
-    - name: Check out repository
-      uses: actions/checkout@v4
-      with:
-        path: ${{ github.repository.name }}
-
-    - name: Verify repository checkout
       run: |
         pwd; ls -lA .; ls -lA ..
