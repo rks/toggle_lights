@@ -9,15 +9,17 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        path: src
     - name: Verify repository checkout
       run: |
-        pwd; ls -lA .; ls -lA ..; echo ${{ github.repository.name }}; echo $GITHUB_WORKSPACE
-    # - name: Check out dependencies
-    #   uses: actions/checkout@v4
-    #   with:
-    #     repository: rks/file_exchange_toolbox
-    #     path: ../mpm_repository/file_exchange_toolbox
-    #     token: ${{ secrets.TOGGLE_LIGHTS_PUBLISH_PACKAGE }}
-    # - name: Verify dependency checkout
-    #   run: |
-    #     pwd; ls -lA .; ls -lA ..
+        pwd; ls -lA .
+    - name: Check out dependencies
+      uses: actions/checkout@v4
+      with:
+        repository: rks/file_exchange_toolbox
+        path: ../mpm_repository/file_exchange_toolbox
+        token: ${{ secrets.TOGGLE_LIGHTS_PUBLISH_PACKAGE }}
+    - name: Verify dependency checkout
+      run: |
+        pwd; ls -lA .
