@@ -10,8 +10,9 @@ jobs:
     - name: Check out dependencies
       uses: actions/checkout@v4
       with:
-        repository: rsouza/file_exchange_toolbox
+        repository: rks/file_exchange_toolbox
         path: mpm_repository/file_exchange_toolbox
+        token: ${{ secrets.TOGGLE_LIGHTS_PUBLISH_PACKAGE }}
         sparse-checkout: .
 
     - name: Check out repository
