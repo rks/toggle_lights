@@ -2,24 +2,27 @@ name: Publish package
 on:
   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
+env:
+  MPM_REPOSITORY_PATH: ${{ github.workspace }}/build/mpm_repository
 
+jobs:
+  setup:
+    runs-on: ubuntu-22.04
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
-      with:
-        path: src
-    - name: Verify repository checkout
-      run: |
-        pwd; ls -lA .
     - name: Check out dependencies
       uses: actions/checkout@v4
       with:
         repository: rks/file_exchange_toolbox
-        path: mpm_repository/file_exchange_toolbox
+        path: ${{ env.MPM_REPOSITORY_PATH }}
         token: ${{ secrets.TOGGLE_LIGHTS_PUBLISH_PACKAGE }}
+    - name: Verify dependency checkout
+      run: |
+        pwd; ls -lA .
+  build:
+    runs-on: ubuntu-22.04
+    steps:
     - name: Verify dependency checkout
       run: |
         pwd; ls -lA .
@@ -29,7 +32,5 @@ jobs:
         release: latest-including-prerelease
     - name: Run build
       uses: matlab-actions/run-build@v2
-      env:
-        MPM_REPOSITORY_PATH: ${{ github.workspace }}/mpm_repository
       with:
         tasks: package
