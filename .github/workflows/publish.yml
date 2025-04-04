@@ -1,0 +1,24 @@
+name: Publish package
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Check out dependencies
+      uses: actions/checkout@v4
+      with:
+        repository: rsouza/file_exchange_toolbox
+        path: mpm_repository/file_exchange_toolbox
+        sparse-checkout: .
+
+    - name: Check out repository
+      uses: actions/checkout@v4
+      with:
+        path: ${{ github.repository.name }}
+
+    - name: Verify checkout
+      run: |
+        ls -lA .
