@@ -13,7 +13,6 @@ jobs:
         repository: rks/file_exchange_toolbox
         path: mpm_repository/file_exchange_toolbox
         token: ${{ secrets.TOGGLE_LIGHTS_PUBLISH_PACKAGE }}
-        sparse-checkout: .
 
     - name: Check out repository
       uses: actions/checkout@v4
@@ -22,4 +21,4 @@ jobs:
 
     - name: Verify checkout
       run: |
-        ls -lA .
+        pwd; ls -lA .
