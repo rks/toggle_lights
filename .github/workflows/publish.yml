@@ -23,3 +23,13 @@ jobs:
     - name: Verify dependency checkout
       run: |
         pwd; ls -lA .
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v2
+      with:
+        release: latest-including-prerelease
+    - name: Run build
+      uses: matlab-actions/run-build@v2
+      env:
+        MPM_REPOSITORY_PATH: ${{ github.workspace }}/mpm_repository
+      with:
+        tasks: package
